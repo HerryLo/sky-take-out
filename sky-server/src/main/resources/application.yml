@@ -1,0 +1,34 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: skt-server
+  datasource:
+    url: jdbc:mysql://localhost:3306/sky_take_out?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  packages-to-scan: com.liuheng.controller
+  swagger-ui:
+    path: /swagger-ui.html
+    defaultModelsExpandDepth: 1
+
+sky:
+  jwt:
+    # ??jwt??????????
+    admin-secret-key: herrylo-secret-key-32-bytes-long-12345678
+    # ??jwt????
+    admin-ttl: 7200000
+    # ?????????????
+    admin-token-name: token
+    user-secret-key: herrylo-secret-key-32-bytes-long-12345678
+    user-ttl: 7200000
+    user-token-name: authentication

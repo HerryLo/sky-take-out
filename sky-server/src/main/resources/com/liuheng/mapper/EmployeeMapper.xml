@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuheng.mapper.EmployeeMapper">
+    <!--    根据用户名查询员工-->
+    <select id="getByUsername" resultType="com.liuheng.entity.Employee">
+        select * from employee where username = #{username}
+    </select>
+</mapper>
