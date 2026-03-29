@@ -1,6 +1,8 @@
 package com.liuheng.mapper;
 
+import com.liuheng.dto.EmployeeLoginDTO;
 import com.liuheng.entity.Employee;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,4 +14,6 @@ public interface EmployeeMapper {
      * @return
      */
     Employee getByUsername(String username);
+
+    void insert(Employee employee);
 }
