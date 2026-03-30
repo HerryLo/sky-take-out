@@ -18,7 +18,4 @@ public class EmployeeVO implements Serializable {
     private Integer sex;
     private String idNumber;
     private String avatar;
-    private Integer status;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
 }
