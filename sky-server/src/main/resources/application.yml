@@ -23,12 +23,9 @@ springdoc:
 
 sky:
   jwt:
-    # ??jwt??????????
     admin-secret-key: herrylo-secret-key-32-bytes-long-12345678
-    # ??jwt????
     admin-ttl: 7200000
-    # ?????????????
     admin-token-name: token
     user-secret-key: herrylo-secret-key-32-bytes-long-12345678
     user-ttl: 7200000
-    user-token-name: authentication
+    user-token-name: token

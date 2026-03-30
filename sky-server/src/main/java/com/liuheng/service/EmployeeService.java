@@ -7,5 +7,5 @@ import com.liuheng.vo.UserLoginVO;
 
 public interface EmployeeService {
     Employee login(EmployeeLoginDTO employeeLoginDTO);
-    void save(EmployeeVO employee);
+    boolean save(EmployeeVO employee);
 }

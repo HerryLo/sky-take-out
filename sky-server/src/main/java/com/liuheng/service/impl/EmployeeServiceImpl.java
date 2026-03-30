@@ -12,6 +12,7 @@ import com.liuheng.exception.PasswordErrorException;
 import com.liuheng.mapper.EmployeeMapper;
 import com.liuheng.service.EmployeeService;
 import com.liuheng.vo.EmployeeVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
@@ -54,17 +56,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void save(EmployeeVO employeeVo) {
-        Employee employee = new Employee();
+    public boolean save(EmployeeVO employeeVo) {
+        Employee emp = employeeMapper.getByUsername(employeeVo.getUsername());
 
+        if(emp != null ) {
+            //账号已存在
+            throw new AccountNotFoundException(MessageConstant.ALREADY_EXISTS);
+        }
+
+        Employee employee = new Employee();
         BeanUtils.copyProperties(employeeVo, employee);
 
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         employee.setStatus(StatusConstant.ENABLE);
         employee.setCreateTime(LocalDateTime.now());
+        // TODO 更新人和创建人 是通过 ThreadLocal 进行保存id
         employee.setUpdateUser(BaseContext.getCurrentId());
         employee.setCreateUser(BaseContext.getCurrentId());
 
-        employeeMapper.insert(employee);
+        return employeeMapper.save(employee) > 0;
     }
 }
