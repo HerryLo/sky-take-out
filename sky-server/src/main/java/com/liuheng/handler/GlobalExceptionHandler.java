@@ -4,6 +4,7 @@ import com.liuheng.constant.MessageConstant;
 import com.liuheng.exception.BaseException;
 import com.liuheng.result.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,11 +29,23 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 处理参数异常
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result exceptionHandler(MethodArgumentNotValidException ex){
+        String message = ex.getBindingResult().getFieldError().getDefaultMessage();
+        log.warn("参数校验失败：{}", message);
+        return Result.error(message);
+    }
+
+    /**
      * 处理SQL异常
      * @param ex
      * @return
      */
-    @ExceptionHandler
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
         //Duplicate entry 'zhangsan' for key 'employee.idx_username'
         String message = ex.getMessage();

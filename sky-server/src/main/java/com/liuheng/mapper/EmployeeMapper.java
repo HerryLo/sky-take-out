@@ -1,10 +1,10 @@
 package com.liuheng.mapper;
 
-import com.liuheng.dto.EmployeeLoginDTO;
+import com.liuheng.dto.EmployeeDTO;
 import com.liuheng.entity.Employee;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface EmployeeMapper {
@@ -15,10 +15,41 @@ public interface EmployeeMapper {
      */
     Employee getByUsername(String username);
 
+
+    /**
+     * 查询员工
+     * @param id
+     * @return
+     */
+    Employee getById(Long id);
+
     /**
      * 新增员工
      * @param employee
      * @return
      */
     int save(Employee employee);
+
+    /**
+     * 分页查询员工
+     * @param name
+     * @param status
+     * @return
+     */
+    List<Employee> list(String name, Integer status, Long id);
+
+    /**
+     * 修改员工
+     * @param employee
+     * @return
+     */
+    int update(Employee employee);
+
+    /**
+     * 启用禁用员工
+     * @param status
+     * @param id
+     * @return
+     */
+    int updateStatus(Integer status, Long id);
 }

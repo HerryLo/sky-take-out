@@ -1,17 +1,16 @@
 package com.liuheng.service.impl;
 
-import com.liuheng.constant.MessageConstant;
-import com.liuheng.constant.PasswordConstant;
-import com.liuheng.constant.StatusConstant;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.liuheng.constant.*;
 import com.liuheng.context.BaseContext;
-import com.liuheng.dto.EmployeeLoginDTO;
+import com.liuheng.dto.*;
 import com.liuheng.entity.Employee;
-import com.liuheng.exception.AccountLockedException;
-import com.liuheng.exception.AccountNotFoundException;
-import com.liuheng.exception.PasswordErrorException;
+import com.liuheng.exception.*;
+import com.liuheng.exception.IllegalArgumentException;
 import com.liuheng.mapper.EmployeeMapper;
+import com.liuheng.result.PageResult;
 import com.liuheng.service.EmployeeService;
-import com.liuheng.vo.EmployeeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean save(EmployeeVO employeeVo) {
+    public boolean save(EmployeeDTO employeeVo) {
         Employee emp = employeeMapper.getByUsername(employeeVo.getUsername());
 
         if(emp != null ) {
@@ -75,5 +75,52 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setCreateUser(BaseContext.getCurrentId());
 
         return employeeMapper.save(employee) > 0;
+    }
+
+    @Override
+    public PageResult search(EmployeePageQueryDTO employeePageQueryDTO) {
+        // 1. 开启分页
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        // 2. 执行查询（紧跟着的查询会被分页）
+        String name = employeePageQueryDTO.getName();
+        Integer status = employeePageQueryDTO.getStatus();
+        Long id = employeePageQueryDTO.getId();
+        List<Employee> list = employeeMapper.list(name, status, id);
+        Page<Employee> p = (Page<Employee>) list;
+
+        return new PageResult(p.getTotal(), p.getResult());
+    }
+
+    @Override
+    public boolean update(EmployeeDTO employeeVo) {
+        Employee currentEmp = employeeMapper.getById(employeeVo.getId());
+        if(currentEmp == null) {
+            //员工不存在
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        Employee emp = employeeMapper.getByUsername(employeeVo.getUsername());
+        if(emp != null ) {
+            //员工用户名已存在
+            throw new AccountNotFoundException("员工用户名: username" + MessageConstant.ALREADY_EXISTS);
+        }
+
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeVo, employee);
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        return employeeMapper.update(employee) > 0;
+    }
+
+    @Override
+    public boolean updateStatus(EmployeeStatusDTO employeeStatusDTO) {
+        Employee currentEmp = employeeMapper.getById(employeeStatusDTO.getId());
+        if(currentEmp == null) {
+            //员工不存在
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+        return employeeMapper.updateStatus(employeeStatusDTO.getStatus(), employeeStatusDTO.getId()) > 0;
     }
 }

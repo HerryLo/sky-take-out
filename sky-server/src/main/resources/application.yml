@@ -21,6 +21,11 @@ springdoc:
     path: /swagger-ui.html
     defaultModelsExpandDepth: 1
 
+page helper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
 sky:
   jwt:
     admin-secret-key: herrylo-secret-key-32-bytes-long-12345678

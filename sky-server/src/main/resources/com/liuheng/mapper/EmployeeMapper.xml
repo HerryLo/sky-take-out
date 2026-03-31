@@ -2,9 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.liuheng.mapper.EmployeeMapper">
-    <!--    根据用户名查询员工-->
+    <!-- 根据用户名查询员工-->
     <select id="getByUsername" resultType="com.liuheng.entity.Employee">
         select * from employee where username = #{username}
+    </select>
+
+    <!-- 根据id查询员工-->
+    <select id="getById" resultType="com.liuheng.entity.Employee">
+        select * from employee where id = #{id}
     </select>
 
     <!-- 插入员工，返回自增主键 -->
@@ -14,4 +19,46 @@
         values
             (#{username}, #{password}, #{name}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
     </insert>
+
+    <!--分页查询员工-->
+    <select id="list" resultType="com.liuheng.entity.Employee">
+        select * from employee
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--修改员工-->
+    <update id="update">
+        update employee
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="idNumber != null">id_number = #{idNumber},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--启用禁用员工-->
+    <update id="updateStatus">
+        update employee
+        <set>
+            <if test="status != null">status = #{status}</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>
