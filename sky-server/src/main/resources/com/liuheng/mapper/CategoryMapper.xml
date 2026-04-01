@@ -2,10 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.liuheng.mapper.CategoryMapper">
+
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
         insert into category
             (name, type, sort, status, create_time, update_time, create_user, update_user)
         values
             (#{name}, #{type}, #{sort}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
     </insert>
+
+    <!-- 分页查询（带条件） -->
+    <select id="list" resultType="com.liuheng.entity.Category">
+        select * from category
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        order by sort asc, create_time desc
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="getById" resultType="com.liuheng.entity.Category">
+        select * from category where id = #{id}
+    </select>
+
+    <!-- 根据ID更新分类（动态SQL） -->
+    <update id="update">
+        update category
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--  开启禁用分类  -->
+    <update id="updateStatus">
+        update category
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 根据ID删除分类 -->
+    <delete id="deleteById">
+        delete from category where id = #{id}
+    </delete>
+
 </mapper>

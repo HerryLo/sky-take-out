@@ -2,6 +2,7 @@ package com.liuheng.controller.admin;
 
 import com.liuheng.dto.CategoryDTO;
 import com.liuheng.dto.CategoryPageQueryDTO;
+import com.liuheng.dto.CategoryStatusDTO;
 import com.liuheng.mapper.CategoryMapper;
 import com.liuheng.result.PageResult;
 import com.liuheng.result.Result;
@@ -26,16 +27,37 @@ public class CategoryController {
 
     @Operation(summary = "新增分类")
     @PostMapping
-    public Result save(@RequestBody CategoryDTO categoryDTO) {
+    public Result<Boolean> save(@RequestBody CategoryDTO categoryDTO) {
         boolean bool = categoryService.save(categoryDTO);
         return Result.success(bool);
     }
 
     @Operation(summary = "分页查询分类")
     @PostMapping("/search")
-    public Result search(@RequestBody CategoryPageQueryDTO categoryPageQueryDTO) {
+    public Result<PageResult> search(@RequestBody CategoryPageQueryDTO categoryPageQueryDTO) {
         PageResult pageResult = categoryService.search(categoryPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    @Operation(summary = "更新分类")
+    @PostMapping("/update")
+    public Result<Boolean> update(@RequestBody CategoryDTO categoryDTO) {
+        boolean bool = categoryService.update(categoryDTO);
+        return Result.success(bool);
+    }
+
+    @Operation(summary = "开启禁用分类")
+    @PostMapping("/status")
+    public Result<Boolean> updateStatus(@RequestBody CategoryStatusDTO categoryStatusDTO) {
+        boolean bool = categoryService.updateStatus(categoryStatusDTO);
+        return Result.success(bool);
+    }
+
+    @Operation(summary = "删除分类")
+    @DeleteMapping("/delete")
+    public Result<Boolean> delete(Long id) {
+        boolean bool = categoryService.delete(id);
+        return Result.success(bool);
     }
 
 }
