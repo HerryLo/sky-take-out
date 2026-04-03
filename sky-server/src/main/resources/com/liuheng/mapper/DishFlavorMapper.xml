@@ -6,6 +6,8 @@
         insert into dish_flavor
         (name, value, dishId, create_time, update_time, create_user, update_user)
         values
+        <foreach collection="list" item="item" separator=",">
             (#{name}, #{value}, #{dishId}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
+        </foreach>
     </insert>
 </mapper>
