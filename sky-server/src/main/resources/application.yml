@@ -12,6 +12,17 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 或者使用更细粒度的日志级别
+#logging:
+#  level:
+#    com.liuheng.mapper: DEBUG  # 你的Mapper接口包路径
+#    org.mybatis: DEBUG
+#    java.sql: DEBUG
+#    java.sql.Connection: DEBUG
+#    java.sql.PreparedStatement: DEBUG
+#    java.sql.ResultSet: DEBUG
   
 springdoc:
   api-docs:

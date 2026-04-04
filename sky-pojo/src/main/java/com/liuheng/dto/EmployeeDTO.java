@@ -28,8 +28,6 @@ public class EmployeeDTO implements Serializable {
     private String phone;
 
     @NotNull(message = "性别不能为空")                // Integer 用 @NotNull
-    @Min(value = 1, message = "性别只能是1或2")
-    @Max(value = 2, message = "性别只能是1或2")
     @Schema(description = "性别", example = "1")
     private String sex;
 
@@ -37,5 +35,4 @@ public class EmployeeDTO implements Serializable {
     @Pattern(regexp = "^\\d{17}[\\dXx]$", message = "身份证号格式错误")
     @Schema(description = "身份证", example = "1")
     private String idNumber;
-
 }

@@ -14,6 +14,7 @@ import com.liuheng.vo.EmployeeLoginVO;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +70,7 @@ public class EmployeeController {
      */
     @Operation(summary = "新增员工")
     @PostMapping
-    public Result<EmployeeDTO> save(@RequestBody EmployeeDTO employee) {
+    public Result<EmployeeDTO> save(@RequestBody @Valid EmployeeDTO employee) {
         log.info("新增员工: {}", employee);
         boolean bool = EmployeeService.save(employee);
         return bool ? Result.success(employee) : Result.success();

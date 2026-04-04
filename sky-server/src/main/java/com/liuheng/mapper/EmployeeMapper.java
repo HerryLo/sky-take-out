@@ -1,8 +1,10 @@
 package com.liuheng.mapper;
 
-import com.liuheng.dto.EmployeeDTO;
+import com.liuheng.annotation.AutoFill;
 import com.liuheng.entity.Employee;
+import com.liuheng.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public interface EmployeeMapper {
      * @param employee
      * @return
      */
+    @AutoFill(value = OperationType.INSERT)
     int save(Employee employee);
 
     /**
@@ -43,6 +46,7 @@ public interface EmployeeMapper {
      * @param employee
      * @return
      */
+    @AutoFill(value = OperationType.UPDATE)
     int update(Employee employee);
 
     /**
