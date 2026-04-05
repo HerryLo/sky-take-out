@@ -1,11 +1,46 @@
 package com.liuheng.mapper;
 
-import com.liuheng.dto.DishDTO;
+import com.github.pagehelper.Page;
+import com.liuheng.annotation.AutoFill;
+import com.liuheng.dto.DishPageQueryDTO;
+import com.liuheng.vo.DishVO;
 import com.liuheng.entity.Dish;
+import com.liuheng.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface DishMapper {
+    /**
+     * 分类id查询菜品
+     * @param id
+     * @return
+     */
     Integer countByCategoryId(Long id);
+
+    /**
+     * 新增菜品
+     * @param dish
+     * @return
+     */
+    @AutoFill(value = OperationType.INSERT)
     int save(Dish dish);
+
+    /**
+     * 菜品分页查询
+     * @param dishPageQueryDTO
+     * @return
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 分页查询
+     * @param name
+     * @param categoryId
+     * @param status
+     * @return
+     */
+    List<Dish> list(String name, Long categoryId, Integer status);
+
 }

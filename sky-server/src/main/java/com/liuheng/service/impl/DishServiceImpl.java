@@ -1,19 +1,25 @@
 package com.liuheng.service.impl;
 
-import com.liuheng.context.BaseContext;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.liuheng.dto.DishDTO;
+import com.liuheng.dto.DishPageQueryDTO;
+import com.liuheng.vo.DishVO;
 import com.liuheng.entity.Dish;
 import com.liuheng.entity.DishFlavor;
 import com.liuheng.mapper.DishFlavorMapper;
 import com.liuheng.mapper.DishMapper;
+import com.liuheng.result.PageResult;
 import com.liuheng.service.DishService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 public class DishServiceImpl implements DishService {
     @Autowired
@@ -27,14 +33,10 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean saveWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
-        dish.setCreateTime(LocalDateTime.now());
-        dish.setUpdateTime(LocalDateTime.now());
-        dish.setCreateUser(BaseContext.getCurrentId());
-        dish.setUpdateUser(BaseContext.getCurrentId());
-
         dishMapper.save(dish);
 
         Long id = dish.getId();
@@ -44,14 +46,25 @@ public class DishServiceImpl implements DishService {
         if(dishFlavorList != null) {
             for(DishFlavor dishFlavor : dishFlavorList) {
                 dishFlavor.setDishId(id);
-                dishFlavor.setCreateTime(LocalDateTime.now());
-                dishFlavor.setUpdateTime(LocalDateTime.now());
-                dishFlavor.setCreateUser(BaseContext.getCurrentId());
-                dishFlavor.setUpdateUser(BaseContext.getCurrentId());
             }
             dishFlavorMapper.save(dishFlavorList);
         }
 
-        return false;
+        return true;
+    }
+
+    /**
+     * 分页查询菜品
+     * @param dishPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult search(DishPageQueryDTO dishPageQueryDTO) {
+        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
+
+        List<DishVO> dishVOList = dishMapper.pageQuery(dishPageQueryDTO);
+        Page<DishVO> p = (Page<DishVO>) dishVOList;
+
+        return new PageResult(p.getTotal(), p.getResult());
     }
 }

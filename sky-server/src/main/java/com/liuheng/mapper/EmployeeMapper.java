@@ -4,7 +4,6 @@ import com.liuheng.annotation.AutoFill;
 import com.liuheng.entity.Employee;
 import com.liuheng.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

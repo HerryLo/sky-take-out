@@ -14,6 +14,8 @@ public class DishDTO {
     private BigDecimal price;
     private Long categoryId;
     private String image;
+    private String description;
+    private Integer status;
 
     // 口味列表
     private List<DishFlavor> flavors;
