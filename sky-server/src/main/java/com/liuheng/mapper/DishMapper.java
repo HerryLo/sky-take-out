@@ -2,7 +2,9 @@ package com.liuheng.mapper;
 
 import com.github.pagehelper.Page;
 import com.liuheng.annotation.AutoFill;
+import com.liuheng.dto.DishDTO;
 import com.liuheng.dto.DishPageQueryDTO;
+import com.liuheng.entity.DishFlavor;
 import com.liuheng.vo.DishVO;
 import com.liuheng.entity.Dish;
 import com.liuheng.enumeration.OperationType;
@@ -43,4 +45,25 @@ public interface DishMapper {
      */
     List<Dish> list(String name, Long categoryId, Integer status);
 
+
+    /**
+     * 根据id查询菜品
+     * @param id
+     * @return
+     */
+    DishVO getById(Long id);
+
+    /**
+     * 根据分类id查询菜品
+     * @param id
+     * @return
+     */
+    List<Dish> getByCategoryId(Long id);
+
+    /**
+     * 更新菜品
+     * @return
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    int update(Dish dish);
 }

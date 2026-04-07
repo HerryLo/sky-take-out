@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.liuheng.mapper.DishFlavorMapper">
+    <!--  新增菜品口味  -->
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
         insert into dish_flavor
         (name, value, dish_id)
@@ -10,4 +11,13 @@
             (#{item.name}, #{item.value}, #{item.dishId})
         </foreach>
     </insert>
+
+    <!--  根据菜品id查询口味  -->
+    <select id="getFlavorByDishId" resultType="com.liuheng.entity.DishFlavor">
+        select * from dish_flavor where dish_id = #{id}
+    </select>
+
+    <delete id="deleteByDishId">
+        delete from dish_flavor where dish_id = #{dishId}
+    </delete>
 </mapper>

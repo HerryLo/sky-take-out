@@ -67,4 +67,55 @@ public class DishServiceImpl implements DishService {
 
         return new PageResult(p.getTotal(), p.getResult());
     }
+
+    /**
+     * 根据菜品id查询菜品口味
+     * @param id
+     * @return
+     */
+    @Override
+    public List<DishFlavor> getFlavorByDishId(Long id) {
+        return dishFlavorMapper.getFlavorByDishId(id);
+    }
+
+    /**
+     * 根据菜品id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public DishVO getById(Long categoryId) {
+        return dishMapper.getById(categoryId);
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> getByCategoryId(Long categoryId) {
+        return dishMapper.getByCategoryId(categoryId);
+    }
+
+    @Override
+    public boolean update(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.update(dish);
+
+        // TODO 删除原有菜品的口味
+        dishFlavorMapper.deleteByDishId(dish.getId());
+
+        // TODO 修改品同时还需要修改菜品口味
+        List<DishFlavor> dishFlavorList = dishDTO.getFlavors();
+        if(dishFlavorList != null && !dishFlavorList.isEmpty()) {
+            for(DishFlavor dishFlavor : dishFlavorList) {
+                dishFlavor.setDishId(dish.getId());
+            }
+            dishFlavorMapper.save(dishFlavorList);
+        }
+
+        return true;
+    }
 }

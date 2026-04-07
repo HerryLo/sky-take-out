@@ -15,4 +15,17 @@ public interface DishFlavorMapper {
      * @return
      */
     int save(List<DishFlavor> dishFlavorList);
+
+    /**
+     * 菜品id查询菜品口味
+     * @param id
+     * @return
+     */
+    List<DishFlavor> getFlavorByDishId(Long id);
+
+    /**
+     * 根据菜品id删除菜品口味
+     * @param dishId
+     */
+    void deleteByDishId(Long dishId);
 }
