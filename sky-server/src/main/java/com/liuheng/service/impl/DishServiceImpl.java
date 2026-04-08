@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.liuheng.dto.DishDTO;
 import com.liuheng.dto.DishPageQueryDTO;
+import com.liuheng.dto.DishStatusDTO;
 import com.liuheng.vo.DishVO;
 import com.liuheng.entity.Dish;
 import com.liuheng.entity.DishFlavor;
@@ -117,5 +118,18 @@ public class DishServiceImpl implements DishService {
         }
 
         return true;
+    }
+
+    /**
+     * 菜品起售/停售
+     * @param dishStatusDTO
+     * @return
+     */
+    @Override
+    public boolean updateStatus(DishStatusDTO dishStatusDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishStatusDTO, dish);
+
+        return dishMapper.updateStatus(dish) > 0;
     }
 }

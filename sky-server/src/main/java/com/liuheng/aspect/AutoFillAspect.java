@@ -73,7 +73,8 @@ public class AutoFillAspect {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+        log.info("公共字段自动填充完成");
+
     }
 }

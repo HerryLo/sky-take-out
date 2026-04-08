@@ -10,6 +10,7 @@ import com.liuheng.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin/category")
 @Tag(name = "分类管理", description = "分类相关接口")
-@SecurityRequirement(name = "tokenAuth")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
@@ -27,7 +27,7 @@ public class CategoryController {
 
     @Operation(summary = "新增分类")
     @PostMapping
-    public Result<Boolean> save(@RequestBody CategoryDTO categoryDTO) {
+    public Result<Boolean> save(@RequestBody @Valid CategoryDTO categoryDTO) {
         boolean bool = categoryService.save(categoryDTO);
         return Result.success(bool);
     }
@@ -41,14 +41,14 @@ public class CategoryController {
 
     @Operation(summary = "更新分类")
     @PostMapping("/update")
-    public Result<Boolean> update(@RequestBody CategoryDTO categoryDTO) {
+    public Result<Boolean> update(@RequestBody @Valid CategoryDTO categoryDTO) {
         boolean bool = categoryService.update(categoryDTO);
         return Result.success(bool);
     }
 
     @Operation(summary = "开启禁用分类")
     @PostMapping("/status")
-    public Result<Boolean> updateStatus(@RequestBody CategoryStatusDTO categoryStatusDTO) {
+    public Result<Boolean> updateStatus(@RequestBody @Valid CategoryStatusDTO categoryStatusDTO) {
         boolean bool = categoryService.updateStatus(categoryStatusDTO);
         return Result.success(bool);
     }

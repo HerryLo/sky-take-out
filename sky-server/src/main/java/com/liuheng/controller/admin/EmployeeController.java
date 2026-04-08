@@ -25,7 +25,6 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/admin/employee")
 @Tag(name = "员工管理", description = "员工相关接口")
-@SecurityRequirement(name = "tokenAuth")
 public class EmployeeController {
     private EmployeeService EmployeeService;
     private JwtProperties jwtProperties;
@@ -96,7 +95,7 @@ public class EmployeeController {
      */
     @Operation(summary = "编辑员工信息")
     @PostMapping("/update")
-    public Result update(@RequestBody @Validated EmployeeDTO employeeDTO) {
+    public Result update(@RequestBody @Valid EmployeeDTO employeeDTO) {
         log.info("编辑员工信息: {}", employeeDTO);
         return Result.success(EmployeeService.update(employeeDTO));
     }
@@ -108,7 +107,7 @@ public class EmployeeController {
      */
     @Operation(summary = "启用禁用员工")
     @PostMapping("/status")
-    public Result updateStatus(@RequestBody EmployeeStatusDTO employeeStatusDTO) {
+    public Result updateStatus(@RequestBody @Valid EmployeeStatusDTO employeeStatusDTO) {
         log.info("编辑员工信息: {}", employeeStatusDTO);
         return Result.success(EmployeeService.updateStatus(employeeStatusDTO));
     }

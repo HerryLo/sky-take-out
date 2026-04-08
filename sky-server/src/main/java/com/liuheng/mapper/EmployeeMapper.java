@@ -50,9 +50,9 @@ public interface EmployeeMapper {
 
     /**
      * 启用禁用员工
-     * @param status
-     * @param id
+     * @param employee
      * @return
      */
-    int updateStatus(Integer status, Long id);
+    @AutoFill(value = OperationType.UPDATE)
+    int updateStatus(Employee employee);
 }

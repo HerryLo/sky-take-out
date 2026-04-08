@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.liuheng.annotation.AutoFill;
 import com.liuheng.dto.DishDTO;
 import com.liuheng.dto.DishPageQueryDTO;
+import com.liuheng.dto.DishStatusDTO;
 import com.liuheng.entity.DishFlavor;
 import com.liuheng.vo.DishVO;
 import com.liuheng.entity.Dish;
@@ -66,4 +67,12 @@ public interface DishMapper {
      */
     @AutoFill(value = OperationType.UPDATE)
     int update(Dish dish);
+
+    /**
+     * 菜品起售/停售
+     * @param dish
+     * @return
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    int updateStatus(Dish dish);
 }

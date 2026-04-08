@@ -2,6 +2,7 @@ package com.liuheng.service;
 
 import com.liuheng.dto.DishDTO;
 import com.liuheng.dto.DishPageQueryDTO;
+import com.liuheng.dto.DishStatusDTO;
 import com.liuheng.entity.Dish;
 import com.liuheng.entity.DishFlavor;
 import com.liuheng.result.PageResult;
@@ -16,4 +17,5 @@ public interface DishService {
     DishVO getById(Long id);
     List<Dish> getByCategoryId(Long categoryId);
     boolean update(DishDTO dishDTO);
+    boolean updateStatus(DishStatusDTO dishStatusDTO);
 }

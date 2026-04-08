@@ -13,24 +13,21 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# 或者使用更细粒度的日志级别
-#logging:
-#  level:
-#    com.liuheng.mapper: DEBUG  # 你的Mapper接口包路径
-#    org.mybatis: DEBUG
-#    java.sql: DEBUG
-#    java.sql.Connection: DEBUG
-#    java.sql.PreparedStatement: DEBUG
-#    java.sql.ResultSet: DEBUG
   
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  packages-to-scan: com.liuheng.controller
-  swagger-ui:
-    path: /swagger-ui.html
-    defaultModelsExpandDepth: 1
+#springdoc:
+#  api-docs:
+#    path: /v3/api-docs
+#  packages-to-scan: com.liuheng.controller
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    defaultModelsExpandDepth: 1
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    swagger-model-name: 实体类
+    # 是否显示标签分组
+    enableGroup: true
 
 page helper:
   helper-dialect: mysql

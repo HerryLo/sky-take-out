@@ -121,6 +121,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             //员工不存在
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
-        return employeeMapper.updateStatus(employeeStatusDTO.getStatus(), employeeStatusDTO.getId()) > 0;
+
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeStatusDTO, employee);
+
+        return employeeMapper.updateStatus(employee) > 0;
     }
 }
