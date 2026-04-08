@@ -1,9 +1,7 @@
 package com.liuheng.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,8 +16,4 @@ public class EmployeeStatusDTO  implements Serializable {
     @NotNull(message = "员工ID不能为空")
     @Schema(description = "id", example = "1")
     private Long id;
-
-//    @NotBlank(message = "用户名不能为空")
-//    @Schema(description = "用户名（登录账号）", example = "admin")
-//    private String username;
 }
