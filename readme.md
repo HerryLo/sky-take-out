@@ -6,6 +6,6 @@
 
 技术栈：`Java17`、`Mybatis`、`SpringBoot3.2.12`；
 
-数据库：`Mysql`；
+数据库：`Mysql`、`Redis`；
 
 Api文档：`Knife4j`；
