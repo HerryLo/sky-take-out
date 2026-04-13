@@ -2,23 +2,19 @@ package com.liuheng.mapper;
 
 import com.liuheng.annotation.AutoFill;
 import com.liuheng.entity.Setmeal;
+import com.liuheng.entity.SetmealDish;
 import com.liuheng.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface SetmealMapper {
-    /**
-     * 分类id查询套餐
-     * @param id
-     * @return
-     */
-    Integer countByCategoryId(Long id);
+import java.util.List;
 
+@Mapper
+public interface SetmealDishMapper {
     /**
-     * 新增套餐
-     * @param setmeal
+     * 批量新增套餐菜品
+     * @param setmealDishes
      * @return
      */
     @AutoFill(value = OperationType.INSERT)
-    Integer save(Setmeal setmeal);
+    Integer save(List<SetmealDish> setmealDishes);
 }

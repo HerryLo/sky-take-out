@@ -2,6 +2,7 @@ package com.liuheng.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.liuheng.constant.StatusConstant;
 import com.liuheng.dto.DishDTO;
 import com.liuheng.dto.DishPageQueryDTO;
 import com.liuheng.dto.DishStatusDTO;
@@ -38,6 +39,7 @@ public class DishServiceImpl implements DishService {
     public boolean saveWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
+        dish.setStatus(StatusConstant.ENABLE); // 默认为停售状态
         dishMapper.save(dish);
 
         Long id = dish.getId();
