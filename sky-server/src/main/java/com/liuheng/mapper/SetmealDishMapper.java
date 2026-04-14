@@ -17,7 +17,6 @@ public interface SetmealDishMapper {
      * @param setmealDishes
      * @return
      */
-    @AutoFill(value = OperationType.INSERT)
     Integer save(List<SetmealDish> setmealDishes);
 
     /**
