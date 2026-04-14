@@ -2,11 +2,14 @@ package com.liuheng.service.impl;
 
 import com.liuheng.constant.StatusConstant;
 import com.liuheng.dto.SetmealDTO;
+import com.liuheng.dto.SetmealPageQueryDTO;
 import com.liuheng.entity.Setmeal;
 import com.liuheng.entity.SetmealDish;
 import com.liuheng.mapper.SetmealDishMapper;
 import com.liuheng.mapper.SetmealMapper;
 import com.liuheng.service.SetmealService;
+import com.liuheng.vo.SetmealVO;
+import com.liuheng.result.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -44,5 +47,20 @@ public class SetmealServiceImpl implements SetmealService {
             setmealDishMapper.save(setmealDishes);
         }
         return true;
+    }
+
+    @Override
+    public PageResult search(SetmealPageQueryDTO setmealPageQueryDTO) {
+        throw new UnsupportedOperationException("search method not implemented yet");
+    }
+
+    @Override
+    public SetmealVO getById(Long id) {
+        throw new UnsupportedOperationException("getById method not implemented yet");
+    }
+
+    @Override
+    public List<SetmealVO> getByCategoryId(Long categoryId) {
+        throw new UnsupportedOperationException("getByCategoryId method not implemented yet");
     }
 }
