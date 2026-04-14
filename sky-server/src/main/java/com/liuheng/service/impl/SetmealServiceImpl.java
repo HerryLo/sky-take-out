@@ -50,17 +50,20 @@ public class SetmealServiceImpl implements SetmealService {
     }
 
     @Override
-    public PageResult search(SetmealPageQueryDTO setmealPageQueryDTO) {
-        throw new UnsupportedOperationException("search method not implemented yet");
+    public PageResult<SetmealVO> search(SetmealPageQueryDTO setmealPageQueryDTO) {
+        // TODO: implement Phase 1
+        return null;
     }
 
     @Override
     public SetmealVO getById(Long id) {
-        throw new UnsupportedOperationException("getById method not implemented yet");
+        // TODO: implement Phase 1
+        return null;
     }
 
     @Override
     public List<SetmealVO> getByCategoryId(Long categoryId) {
-        throw new UnsupportedOperationException("getByCategoryId method not implemented yet");
+        // TODO: implement Phase 1
+        return null;
     }
 }
