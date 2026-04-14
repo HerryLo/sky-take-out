@@ -84,13 +84,45 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     public SetmealVO getById(Long id) {
-        // TODO: implement Phase 1
-        return null;
+        log.info("根据ID查询套餐：{}", id);
+        // Get setmeal basic info
+        Setmeal setmeal = setmealMapper.getById(id);
+        SetmealVO setmealVO = new SetmealVO();
+        BeanUtils.copyProperties(setmeal, setmealVO);
+
+        // Get category name
+        Category category = categoryMapper.getById(setmeal.getCategoryId());
+        setmealVO.setCategoryName(category != null ? category.getName() : "Unknown Category");
+
+        // Get associated dishes
+        List<SetmealDish> setmealDishes = setmealDishMapper.getBySetmealId(id);
+        setmealVO.setSetmealDishes(setmealDishes);
+
+        return setmealVO;
     }
 
     @Override
     public List<SetmealVO> getByCategoryId(Long categoryId) {
-        // TODO: implement Phase 1
-        return null;
+        log.info("根据分类ID查询套餐：{}", categoryId);
+        // Only get active setmeals
+        SetmealPageQueryDTO queryDTO = new SetmealPageQueryDTO();
+        queryDTO.setCategoryId(categoryId.intValue());
+        queryDTO.setStatus(1); // Only active
+
+        List<Setmeal> setmealList = setmealMapper.list(queryDTO);
+        List<SetmealVO> setmealVOList = new ArrayList<>();
+
+        for (Setmeal setmeal : setmealList) {
+            SetmealVO setmealVO = new SetmealVO();
+            BeanUtils.copyProperties(setmeal, setmealVO);
+
+            // Get category name
+            Category category = categoryMapper.getById(setmeal.getCategoryId());
+            setmealVO.setCategoryName(category != null ? category.getName() : "Unknown Category");
+
+            setmealVOList.add(setmealVO);
+        }
+
+        return setmealVOList;
     }
 }

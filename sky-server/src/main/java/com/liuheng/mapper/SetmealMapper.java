@@ -34,4 +34,12 @@ public interface SetmealMapper {
     @Select("SELECT * FROM setmeal WHERE name LIKE CONCAT('%', #{name}, '%') " +
             "AND category_id = #{categoryId} AND status = #{status}")
     List<Setmeal> list(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * 根据ID查询套餐
+     * @param id
+     * @return
+     */
+    @Select("SELECT * FROM setmeal WHERE id = #{id}")
+    Setmeal getById(Long id);
 }
