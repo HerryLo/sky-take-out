@@ -85,8 +85,16 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public SetmealVO getById(Long id) {
         log.info("根据ID查询套餐：{}", id);
+        if (id == null) {
+            throw new IllegalArgumentException("套餐ID不能为空");
+        }
+
         // Get setmeal basic info
         Setmeal setmeal = setmealMapper.getById(id);
+        if (setmeal == null) {
+            return null;
+        }
+
         SetmealVO setmealVO = new SetmealVO();
         BeanUtils.copyProperties(setmeal, setmealVO);
 
