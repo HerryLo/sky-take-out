@@ -5,6 +5,7 @@ import com.liuheng.entity.Setmeal;
 import com.liuheng.entity.SetmealDish;
 import com.liuheng.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,4 +18,12 @@ public interface SetmealDishMapper {
      */
     @AutoFill(value = OperationType.INSERT)
     Integer save(List<SetmealDish> setmealDishes);
+
+    /**
+     * 根据套餐id查询套餐菜品
+     * @param setmealId
+     * @return
+     */
+    @Select("SELECT * FROM setmeal_dish WHERE setmeal_id = #{setmealId}")
+    List<SetmealDish> getBySetmealId(Long setmealId);
 }

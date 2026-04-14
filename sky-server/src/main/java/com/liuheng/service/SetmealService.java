@@ -10,7 +10,7 @@ public interface SetmealService {
     boolean saveWithDish(SetmealDTO setmealDTO);
 
     // Phase 1 methods
-    PageResult<SetmealVO> search(SetmealPageQueryDTO setmealPageQueryDTO);
+    PageResult search(SetmealPageQueryDTO setmealPageQueryDTO);
     SetmealVO getById(Long id);
     List<SetmealVO> getByCategoryId(Long categoryId);
 }

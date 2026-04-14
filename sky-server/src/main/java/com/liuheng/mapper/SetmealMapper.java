@@ -1,9 +1,13 @@
 package com.liuheng.mapper;
 
 import com.liuheng.annotation.AutoFill;
+import com.liuheng.dto.SetmealPageQueryDTO;
 import com.liuheng.entity.Setmeal;
 import com.liuheng.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface SetmealMapper {
@@ -21,4 +25,13 @@ public interface SetmealMapper {
      */
     @AutoFill(value = OperationType.INSERT)
     Integer save(Setmeal setmeal);
+
+    /**
+     * 条件查询套餐
+     * @param setmealPageQueryDTO
+     * @return
+     */
+    @Select("SELECT * FROM setmeal WHERE name LIKE CONCAT('%', #{name}, '%') " +
+            "AND category_id = #{categoryId} AND status = #{status}")
+    List<Setmeal> list(SetmealPageQueryDTO setmealPageQueryDTO);
 }
