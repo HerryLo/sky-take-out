@@ -4,6 +4,7 @@ import com.liuheng.annotation.AutoFill;
 import com.liuheng.entity.Setmeal;
 import com.liuheng.entity.SetmealDish;
 import com.liuheng.enumeration.OperationType;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +27,12 @@ public interface SetmealDishMapper {
      */
     @Select("SELECT * FROM setmeal_dish WHERE setmeal_id = #{setmealId}")
     List<SetmealDish> getBySetmealId(Long setmealId);
+
+    /**
+     * 根据套餐id删除套餐菜品关系
+     * @param setmealId
+     * @return
+     */
+    @Delete("delete from setmeal_dish where setmeal_id = #{setmealId}")
+    Integer deleteBySetmealId(Long setmealId);
 }

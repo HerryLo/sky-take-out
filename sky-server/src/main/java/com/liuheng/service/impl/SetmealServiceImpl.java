@@ -133,4 +133,64 @@ public class SetmealServiceImpl implements SetmealService {
 
         return setmealVOList;
     }
+
+    @Override
+    public boolean updateWithDish(SetmealDTO setmealDTO) {
+        log.info("修改套餐：{}", setmealDTO);
+
+        // Update setmeal basic info
+        Setmeal setmeal = new Setmeal();
+        BeanUtils.copyProperties(setmealDTO, setmeal);
+        setmealMapper.update(setmeal);
+
+        // Delete old setmeal dishes
+        setmealDishMapper.deleteBySetmealId(setmealDTO.getId());
+
+        // Save new setmeal dishes
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        if (setmealDishes != null && !setmealDishes.isEmpty()) {
+            for (SetmealDish setmealDish : setmealDishes) {
+                setmealDish.setSetmealId(setmealDTO.getId());
+            }
+            setmealDishMapper.save(setmealDishes);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        log.info("删除套餐：{}", id);
+
+        // Check if setmeal exists
+        Setmeal setmeal = setmealMapper.getById(id);
+        if (setmeal == null) {
+            throw new IllegalArgumentException("套餐不存在");
+        }
+
+        // Delete associated dishes
+        setmealDishMapper.deleteBySetmealId(id);
+
+        // Delete setmeal
+        setmealMapper.deleteById(id);
+
+        return true;
+    }
+
+    @Override
+    public boolean changeStatus(Integer status, Long id) {
+        log.info("启用/禁用套餐：status={}, id={}", status, id);
+
+        // Check if setmeal exists
+        Setmeal setmeal = setmealMapper.getById(id);
+        if (setmeal == null) {
+            throw new IllegalArgumentException("套餐不存在");
+        }
+
+        // Update status
+        setmeal.setStatus(status);
+        setmealMapper.update(setmeal);
+
+        return true;
+    }
 }

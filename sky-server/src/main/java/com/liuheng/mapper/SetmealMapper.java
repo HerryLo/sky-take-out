@@ -42,4 +42,26 @@ public interface SetmealMapper {
      */
     @Select("SELECT * FROM setmeal WHERE id = #{id}")
     Setmeal getById(Long id);
+
+    /**
+     * 修改套餐
+     * @param setmeal
+     * @return
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    Integer update(Setmeal setmeal);
+
+    /**
+     * 根据套餐ID删除关联的菜品
+     * @param setmealId
+     * @return
+     */
+    Integer deleteBySetmealId(Long setmealId);
+
+    /**
+     * 根据ID删除套餐
+     * @param id
+     * @return
+     */
+    Integer deleteById(Long id);
 }
