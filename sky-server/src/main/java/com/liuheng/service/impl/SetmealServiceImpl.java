@@ -70,7 +70,7 @@ public class SetmealServiceImpl implements SetmealService {
 
             // Get category name
             Category category = categoryMapper.getById(setmeal.getCategoryId());
-            setmealVO.setCategoryName(category.getName());
+            setmealVO.setCategoryName(category != null ? category.getName() : "Unknown Category");
 
             // Get associated dishes
             List<SetmealDish> setmealDishes = setmealDishMapper.getBySetmealId(setmeal.getId());
