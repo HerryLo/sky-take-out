@@ -18,4 +18,5 @@ public interface DishService {
     List<Dish> getByCategoryId(Long categoryId);
     boolean update(DishDTO dishDTO);
     boolean updateStatus(DishStatusDTO dishStatusDTO);
+    List<Dish> list(Long categoryId);
 }

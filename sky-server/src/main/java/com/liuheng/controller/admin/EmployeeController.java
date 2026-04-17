@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @Slf4j
-@RestController
+@RestController("adminEmployeeController")
 @RequestMapping("/admin/employee")
 @Tag(name = "员工管理", description = "员工相关接口")
 public class EmployeeController {

@@ -4,6 +4,7 @@ import com.liuheng.annotation.AutoFill;
 import com.liuheng.dto.SetmealPageQueryDTO;
 import com.liuheng.entity.Setmeal;
 import com.liuheng.enumeration.OperationType;
+import com.liuheng.vo.DishItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -64,4 +65,9 @@ public interface SetmealMapper {
      * @return
      */
     Integer deleteById(Long id);
+
+    @Select("select sd.name, sd.copies, d.image, d.description " +
+            "from setmeal_dish sd left join dish d on sd.dish_id = d.id " +
+            "where sd.setmeal_id = #{id}")
+    List<DishItemVO> getDishItemBySetmealId(Long id);
 }

@@ -12,6 +12,7 @@ import com.liuheng.mapper.CategoryMapper;
 import com.liuheng.mapper.SetmealDishMapper;
 import com.liuheng.mapper.SetmealMapper;
 import com.liuheng.service.SetmealService;
+import com.liuheng.vo.DishItemVO;
 import com.liuheng.vo.SetmealVO;
 import com.liuheng.result.PageResult;
 import lombok.extern.slf4j.Slf4j;
@@ -192,5 +193,10 @@ public class SetmealServiceImpl implements SetmealService {
         setmealMapper.update(setmeal);
 
         return true;
+    }
+
+    @Override
+    public List<DishItemVO> getDishById(Long id) {
+        return setmealMapper.getDishItemBySetmealId(id);
     }
 }

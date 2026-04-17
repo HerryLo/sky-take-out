@@ -122,4 +122,14 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryMapper.deleteById(id) > 0;
     }
+
+    /**
+     *
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> list(Integer type) {
+        return categoryMapper.list("", type);
+    }
 }

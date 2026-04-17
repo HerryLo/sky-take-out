@@ -2,6 +2,8 @@ package com.liuheng.service;
 
 import com.liuheng.dto.SetmealDTO;
 import com.liuheng.dto.SetmealPageQueryDTO;
+import com.liuheng.entity.SetmealDish;
+import com.liuheng.vo.DishItemVO;
 import com.liuheng.vo.SetmealVO;
 import com.liuheng.result.PageResult;
 import java.util.List;
@@ -35,4 +37,7 @@ public interface SetmealService {
      * @return
      */
     boolean changeStatus(Integer status, Long id);
+
+
+    List<DishItemVO> getDishById(Long id);
 }
