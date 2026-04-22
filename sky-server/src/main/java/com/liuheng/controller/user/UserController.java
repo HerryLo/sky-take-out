@@ -2,6 +2,8 @@ package com.liuheng.controller.user;
 
 import com.liuheng.context.BaseContext;
 import com.liuheng.dto.UserLoginDTO;
+import com.liuheng.entity.User;
+import com.liuheng.mapper.UserMapper;
 import com.liuheng.result.Result;
 import com.liuheng.service.UserService;
 import com.liuheng.vo.UserLoginVO;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/login")
     @Operation(summary = "登录注册")
@@ -36,8 +39,10 @@ public class UserController {
     @Operation(summary = "登出")
     public Result<String> logout(@RequestHeader("token") String token) {
         Long userId = BaseContext.getCurrentId();
-        // 需要通过userId查询用户获取openid，这里暂时用简化处理
-        // 实际应该从UserMapper查询
+        User user = userMapper.getById(userId);
+        if (user != null) {
+            userService.logout(user.getOpenid());
+        }
         return Result.success("登出成功");
     }
 }

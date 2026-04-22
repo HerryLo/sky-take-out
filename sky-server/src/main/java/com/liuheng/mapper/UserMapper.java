@@ -10,5 +10,8 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE openid = #{openid}")
     User getByOpenid(String openid);
 
+    @Select("SELECT * FROM user WHERE id = #{id}")
+    User getById(Long id);
+
     int save(User user);
 }
