@@ -8,3 +8,15 @@ server:
     port: 6379
     password: 123456
     database: 0
+
+sky:
+  jwt:
+    admin-secret-key: your_admin_secret_key
+    admin-ttl: 7200000
+    admin-token-name: token
+    user-secret-key: your_user_secret_key
+    user-ttl: 1800000
+    user-token-name: token
+  wechat:
+    app-id: your_app_id
+    app-secret: your_app_secret
