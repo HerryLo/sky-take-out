@@ -9,7 +9,11 @@
       "Bash(mvn test-compile:*)",
       "Bash(mvn jacoco:report -pl sky-server)",
       "Bash(ls -la sky-server/target/*.exec)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ls -d .worktrees)",
+      "Bash(ls -d worktrees)",
+      "Bash(mvn install *)",
+      "Bash(git worktree *)"
     ]
   }
 }

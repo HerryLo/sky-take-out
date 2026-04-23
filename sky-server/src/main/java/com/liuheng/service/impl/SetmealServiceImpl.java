@@ -113,12 +113,8 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public List<SetmealVO> getByCategoryId(Long categoryId) {
         log.info("根据分类ID查询套餐：{}", categoryId);
-        // Only get active setmeals
-        SetmealPageQueryDTO queryDTO = new SetmealPageQueryDTO();
-        queryDTO.setCategoryId(categoryId.intValue());
-        queryDTO.setStatus(1); // Only active
 
-        List<Setmeal> setmealList = setmealMapper.list(queryDTO);
+        List<Setmeal> setmealList = setmealMapper.getByCategoryId(categoryId);
         List<SetmealVO> setmealVOList = new ArrayList<>();
 
         for (Setmeal setmeal : setmealList) {

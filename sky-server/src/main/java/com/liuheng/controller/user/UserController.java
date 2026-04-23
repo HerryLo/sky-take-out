@@ -4,6 +4,7 @@ import com.liuheng.context.BaseContext;
 import com.liuheng.dto.UserLoginDTO;
 import com.liuheng.entity.User;
 import com.liuheng.mapper.UserMapper;
+import com.liuheng.properties.JwtProperties;
 import com.liuheng.result.Result;
 import com.liuheng.service.UserService;
 import com.liuheng.vo.UserLoginVO;
@@ -20,6 +21,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final JwtProperties jwtProperties;
 
     @PostMapping("/login")
     @Operation(summary = "登录注册")

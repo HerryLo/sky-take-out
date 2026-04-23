@@ -25,8 +25,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/employee/login");
 
         // 用户端拦截器
-        registry.addInterceptor(jwtTokenUserInterceptor)
-                .addPathPatterns("/user/**")
-                .excludePathPatterns("/user/user/login", "/user/user/refresh");
+//        registry.addInterceptor(jwtTokenUserInterceptor)
+//                .addPathPatterns("/user/**")
+//                .excludePathPatterns("/user/user/login", "/user/user/refresh");
     }
 }

@@ -37,6 +37,14 @@ public interface SetmealMapper {
     List<Setmeal> list(SetmealPageQueryDTO setmealPageQueryDTO);
 
     /**
+     * 根据分类ID查询套餐
+     * @param categoryId
+     * @return
+     */
+    @Select("SELECT * FROM setmeal WHERE category_id = #{categoryId}")
+    List<Setmeal> getByCategoryId(Long categoryId);
+
+    /**
      * 根据ID查询套餐
      * @param id
      * @return

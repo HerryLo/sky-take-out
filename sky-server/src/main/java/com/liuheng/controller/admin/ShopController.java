@@ -2,6 +2,7 @@ package com.liuheng.controller.admin;
 
 import com.liuheng.result.Result;
 import com.liuheng.service.ShopService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class ShopController {
      * @param status 1营业中，2已打烊
      * @return
      */
+    @Operation(summary = "更新店铺状态")
     @PostMapping
     public Result setStatus(Integer status) {
         boolean bool = shopService.setStatus(status);
@@ -28,6 +30,7 @@ public class ShopController {
      * 获取店铺状态
      * @return
      */
+    @Operation(summary = "获取店铺状态")
     @GetMapping
     public Result getStatus() {
         Integer status = shopService.getStatus();

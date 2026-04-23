@@ -57,3 +57,7 @@ sky:
     user-secret-key: herrylo-secret-key-32-bytes-long-12345678
     user-ttl: 7200000
     user-token-name: token
+    user-refresh-toke-name: X-Refresh-Token
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}

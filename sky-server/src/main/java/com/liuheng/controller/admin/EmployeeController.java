@@ -79,7 +79,7 @@ public class EmployeeController {
      */
     @Operation(summary = "分页查询员工")
     @PostMapping("/search")
-    public Result<PageResult> search(EmployeePageQueryDTO employeePageQueryDTO) {
+    public Result<PageResult> search(@RequestBody EmployeePageQueryDTO employeePageQueryDTO) {
         log.info("分页查询员工: {}", employeePageQueryDTO);
         PageResult pageResult = EmployeeService.search(employeePageQueryDTO);
         return Result.success(pageResult);
