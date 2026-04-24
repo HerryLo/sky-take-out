@@ -14,9 +14,9 @@ public interface DishService {
     boolean saveWithFlavor(DishDTO dishDTO);
     PageResult search(DishPageQueryDTO dishPageQueryDTO);
     List<DishFlavor> getFlavorByDishId(Long id);
-    DishVO getById(Long id);
+    Dish getById(Long id);
     List<Dish> getByCategoryId(Long categoryId);
     boolean update(DishDTO dishDTO);
     boolean updateStatus(DishStatusDTO dishStatusDTO);
-    List<Dish> list(Long categoryId);
+    List<DishVO> listWithFlavor(Dish dish);
 }

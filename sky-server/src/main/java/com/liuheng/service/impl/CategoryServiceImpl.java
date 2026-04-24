@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         String name = categoryPageQueryDTO.getName();
         Integer type = categoryPageQueryDTO.getType();
-        List<Category> list = categoryMapper.list(name,type);
+        List<Category> list = categoryMapper.pageQuery(name,type);
         Page<Category> p = (Page<Category>) list;
 
         return new PageResult(p.getTotal(), p.getResult());
@@ -124,12 +124,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     *
-     * @param type
+     * 查询分类-用户端
      * @return
      */
     @Override
-    public List<Category> list(Integer type) {
-        return categoryMapper.list("", type);
+    public List<Category> list() {
+        return categoryMapper.list();
     }
 }

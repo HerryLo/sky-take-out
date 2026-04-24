@@ -58,9 +58,9 @@ public class DishController {
 
     @Operation(summary = "根据菜品id查询菜品")
     @PostMapping("/dishid")
-    public Result<DishVO> getById(Long id){
+    public Result<Dish> getById(Long id){
         log.info("根据菜品id查询菜品：{}",id);
-        DishVO dishVO = dishService.getById(id);
+        Dish dishVO = dishService.getById(id);
         return Result.success(dishVO);
     }
 

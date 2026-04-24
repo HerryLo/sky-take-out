@@ -10,9 +10,10 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     int save(Category category);
-    List<Category> list(String name, Integer type);
+    List<Category> pageQuery(String name, Integer type);
     int update(Category category);
     int updateStatus(Long id , Integer status);
     Category getById(Long id);
     int deleteById(Long id);
+    List<Category> list();
 }

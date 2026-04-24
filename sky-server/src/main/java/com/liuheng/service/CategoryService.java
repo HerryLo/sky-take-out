@@ -14,5 +14,5 @@ public interface CategoryService {
     boolean update(CategoryDTO categoryDTO);
     boolean updateStatus(CategoryStatusDTO categoryStatusDTO);
     boolean delete(Long id);
-    List<Category> list(Integer type);
+    List<Category> list();
 }

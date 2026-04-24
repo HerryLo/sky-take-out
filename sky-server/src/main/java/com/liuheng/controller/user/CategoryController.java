@@ -19,14 +19,13 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
     /**
-     * 分类id查询菜品
-     * @param type
+     * 查询分类
      * @return
      */
     @PostMapping("/list")
     @Operation(summary = "查询分类")
-    public Result list(Integer type) {
-        List<Category> list = categoryService.list(type);
+    public Result list() {
+        List<Category> list = categoryService.list();
         return Result.success(list);
     }
 }

@@ -47,7 +47,7 @@
     </select>
 
     <!--  菜品id查询  -->
-    <select id="getById" resultType="com.liuheng.vo.DishVO" >
+    <select id="getById" resultType="com.liuheng.entity.Dish" >
         select * from dish where id = #{id}
     </select>
 

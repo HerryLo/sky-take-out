@@ -16,10 +16,15 @@ import com.liuheng.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,6 +41,7 @@ public class DishServiceImpl implements DishService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "dishCache", allEntries = true)
     public boolean saveWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
@@ -87,7 +93,7 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     @Override
-    public DishVO getById(Long categoryId) {
+    public Dish getById(Long categoryId) {
         return dishMapper.getById(categoryId);
     }
 
@@ -101,7 +107,13 @@ public class DishServiceImpl implements DishService {
         return dishMapper.getByCategoryId(categoryId);
     }
 
+    /**
+     * 修改菜品
+     * @param dishDTO
+     * @return
+     */
     @Override
+    @CacheEvict(value = "dishCache", allEntries = true)
     public boolean update(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
@@ -128,6 +140,7 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     @Override
+    @CacheEvict(value = "dishCache", allEntries = true)
     public boolean updateStatus(DishStatusDTO dishStatusDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishStatusDTO, dish);
@@ -135,8 +148,35 @@ public class DishServiceImpl implements DishService {
         return dishMapper.updateStatus(dish) > 0;
     }
 
+    /**
+     * 根据分类id查询菜品
+     * @param dish
+     * @return
+     */
     @Override
-    public List<Dish> list(Long categoryId) {
-        return dishMapper.getByCategoryId(categoryId);
+    @Cacheable(value = "dishCache", key = "'dish_'+#dish.categoryId")
+    public List<DishVO> listWithFlavor(Dish dish) {
+        List<Dish> dishes = dishMapper.list(dish);
+        List<DishVO> dishVOList = new ArrayList<>();
+
+        if(dishes.isEmpty()) {
+            return dishVOList;
+        }
+
+        List<Long> dishIds = dishes.stream().map(Dish::getId).collect(Collectors.toList());
+
+        Map<Long, List<DishFlavor>> flavorMap = dishFlavorMapper.selectBatchByIds(dishIds)
+                .stream()
+                .collect(Collectors.groupingBy(DishFlavor::getDishId));
+
+
+        for (Dish d : dishes ) {
+            DishVO dishVO = new DishVO();
+            BeanUtils.copyProperties(d,dishVO);
+            dishVO.setFlavors(flavorMap.getOrDefault(d.getId(), new ArrayList<>()));
+
+            dishVOList.add(dishVO);
+        }
+        return dishVOList;
     }
 }

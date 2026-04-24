@@ -11,7 +11,7 @@
     </insert>
 
     <!-- 分页查询（带条件） -->
-    <select id="list" resultType="com.liuheng.entity.Category">
+    <select id="pageQuery" resultType="com.liuheng.entity.Category">
         select * from category
         <where>
             <if test="name != null and name != ''">
@@ -22,6 +22,10 @@
             </if>
         </where>
         order by sort asc, create_time desc
+    </select>
+    <!-- 查询分类-用户端 -->
+    <select id="list" resultType="com.liuheng.entity.Category">
+        select * from category order by sort asc, create_time desc
     </select>
 
     <!-- 根据ID查询 -->

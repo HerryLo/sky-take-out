@@ -12,7 +12,6 @@ public class CategoryDTO implements Serializable {
     private Long id;
 
     //类型 1 菜品分类 2 套餐分类
-    @NotBlank(message = "类型不能为空")
     @Schema(description = "类型", example = "1")
     private Integer type;
 
